@@ -12,29 +12,65 @@ body {
 }
 
 .canvas {
-  margin-top: 20px;
-  width: 500px;
-  height: 500px;
+  margin-top: 40px;
+  width: 800px;
+  height: 400px;
   background-color: white;
   border-radius: 15px;
   box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
 }
 
-/* 컨트롤 패널 마진 */
+/* 컨트롤 패널 수정 */
 .controls {
-  margin-top: 80px;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-/* 컨트롤 패널 플렉스배치 */
+/* 버튼 위치 수정 */
+.controls .controls_btns {
+  margin-bottom: 20px;
+}
+
+/* 버튼 상세 수정 */
+.controls_btns button {
+  padding: 0;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  background: none;
+  cursor: pointer;
+  background-color: white;
+  padding: 5px 0;
+  border-radius: 40px;
+  width: 80px;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
+  color: rgba(0, 0, 0, 0.8);
+  text-transform: uppercase;
+  font-weight: 800;
+  font-size: 12px;
+  margin-top: 20px;
+}
+/* 버튼 효과 활성화 */
+.controls_btns button:active {
+  transform: scale(0.9);
+}
+
+/* 색상 패널 플렉스배치 */
 .controls .controls_colors {
   display: flex;
 }
 
-/* 색상컨트롤패널 크기 조정 */
+/* 색상 패널 크기 조정 */
 .controls_colors .controls_color {
   width: 50px;
   height: 50px;
   border-radius: 50%;
   cursor: pointer;
   box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+/* range 부분 수정 */
+.controls .controls_range {
+  
 }

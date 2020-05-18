@@ -15,6 +15,14 @@
   
   <!-- 3. control(조절 패널들) -->
   <div class="controls">
+    <div class="controls_range">
+      <!-- 인풋타입 수정 -> range 슬라이더, 최소-최대값, 기본값, 단계값 -->
+      <input type="range" id="jsRange" min="0.0" max="10.0" value="5.0" step="0.5" />
+    </div>
+    <div class="controls_btns">
+      <button id="jsMode">Fill</button>
+      <button id="jsSave">Save</button>
+    </div>
     <div class="controls_colors" id="jsColor">
       <div class="controls_color" style="background-color: #2c2c2c;"></div>
       <div class="controls_color" style="background-color: white;"></div>
