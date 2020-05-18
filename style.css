@@ -1,0 +1,40 @@
+@import "reset.css";
+
+body {
+  background-color: #7e7e7e;
+  font-family: -apple-system, BlinkMacSystemFont, 
+  'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 
+  'Open Sans', 'Helvetica Neue', sans-serif;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.canvas {
+  margin-top: 20px;
+  width: 500px;
+  height: 500px;
+  background-color: white;
+  border-radius: 15px;
+  box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+/* 컨트롤 패널 마진 */
+.controls {
+  margin-top: 80px;
+}
+
+/* 컨트롤 패널 플렉스배치 */
+.controls .controls_colors {
+  display: flex;
+}
+
+/* 색상컨트롤패널 크기 조정 */
+.controls_colors .controls_color {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
+}
