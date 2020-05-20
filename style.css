@@ -12,9 +12,9 @@ body {
 }
 
 .canvas {
-  margin-top: 40px;
-  width: 800px;
-  height : 400px;
+  margin-top: 15px;
+  width: 500px;
+  height : 500px;
   background-color: white;
   border-radius: 15px;
   box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
@@ -22,7 +22,7 @@ body {
 
 /* 컨트롤 패널 수정 */
 .controls {
-  margin-top: 20px;
+  margin-top: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -30,7 +30,8 @@ body {
 
 /* 버튼 위치 수정 */
 .controls .controls_btns {
-  margin-bottom: 20px;
+  margin-bottom: 10px;
+  margin-top: -10px;
 }
 
 /* 버튼 상세 수정 */

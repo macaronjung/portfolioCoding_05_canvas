@@ -1,21 +1,11 @@
 
 /* canvas는 많은 능력(특히 픽셀을 다루는)을 가지고 있는 HTML5의 요소 */
+/* canvas는 pixel 을 다루기 때문에 기본적으로 save 기능이 내장되어 있음! */
 /* 1. 캔버스 가지고 오기 */
 const canvas = document.getElementById("jsCanvas");
-/* 13. pixel manipulation size -> pixel을 다룰 수 있는 element로서 만드는 것 (실제 픽셀사이즈 부여) 
-pixel modifier에 사이즈를 부여하여야만 펜이 그려짐 */
-/* css로 캔버스 자체의 크기 부여 + 픽셀을 다루는 윈도우의 크기 설정(=canvas에게 알려주기) */
-canvas.width = 800;
-canvas.height = 400;
 
-/* 8. 캔버스 API 활용하기 -> 
-https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D 
-context -> canvas안에서 픽셀을 다루는 것 */
-const ctx = canvas.getContext('2d');
-/* 9. context default 설정 -> 색상 */
-ctx.strokeStyle = "#2c2c2c";
-/* 10. context 굵기 설정 */
-ctx.lineWidth = 2.5;
+/* 28. fill 버튼 위한 캔버스 사이즈 변수 설정 */
+const CANVAS_SIZE = 500;
 
 /* 14. 색상 패널 가지고 오기 */
 const colors = document.getElementsByClassName("jsColor")
@@ -25,6 +15,41 @@ const range = document.getElementById("jsRange")
 
 /* 20. 채우기 버튼(fill) 가지고 오기 */
 const mode = document.getElementById("jsMode");
+
+/* 33. save 버튼 가지고 오기 */
+const saveBtn = document.getElementById("jsSave");
+
+/* 25. 색상 초기화 */
+const INITIAL_COLOR = "#2c2c2c"
+
+/* 13. pixel manipulation size -> pixel을 다룰 수 있는 element로서 만드는 것 (실제 픽셀사이즈 부여) 
+pixel modifier에 사이즈를 부여하여야만 펜이 그려짐 */
+/* css로 캔버스 자체의 크기 부여 + 픽셀을 다루는 윈도우의 크기 설정(=canvas에게 알려주기) */
+canvas.width = CANVAS_SIZE;
+canvas.height = CANVAS_SIZE;
+
+/* 8. 캔버스 API 활용하기 -> 
+https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D 
+context -> canvas안에서 픽셀을 다루는 것 */
+const ctx = canvas.getContext('2d');
+/* 9. context default 설정 -> 색상 */
+ctx.strokeStyle = INITIAL_COLOR;
+/* 10. context 굵기 설정 */
+ctx.lineWidth = 2.5;
+
+/* 26. 채우기 버튼 기본값 설정 */
+ctx.fillStyle = INITIAL_COLOR;
+
+/* 30. canvas 투명 배경 저장을 방지하기 위한 배경 색상 설정 */
+ctx.fillStyle = "white";
+ctx.fillRect(0, 0, canvas.width, CANVAS_SIZE);
+
+// /* 24. fillstyle 이용 채우기 내부 기본 색상 설정 */
+// /* fillStyle 이 fillRect 보다 아래에 있으면 적용 안됨! */
+// /* canvas는 위에서부터 아래로 실행되기 때문에! */
+// ctx.fillStyle = "green";
+// /* 23. fillRect 이용 x, y값 부여해서 색 채우기 */
+// ctx.fillRect(50, 20, 100, 40); /* x, y 좌표 + 가로, 세로 크기 */
 
 /* ------------------------------------------- */
 
@@ -99,6 +124,11 @@ function onMouseMove(event) {
   canvas.addEventListener("mouseup", stopPainting);
   /* mouseleave -> 마우스 캔버스 외부로 이탈 */
   canvas.addEventListener("mouseleave", stopPainting);
+  /* 28. fill button 마우스 감지 */
+  canvas.addEventListener("click", handleCanvasClick);
+  /* 31. context menu 호출 만들기(기본내장 제외하고 새로 만들기) */
+  /* contextmenu 라는 이벤트(-> 실행될 때 발생) */
+  canvas.addEventListener("contextmenu", handleCM);
 }
 
 /* 15. Array 이용 colors를 돌려서 값 추출하기 */
@@ -112,6 +142,16 @@ function handleColorClick(event) {
   console.log(color);
   /* 기존의 strokeStyle을 override 시킴 */
   ctx.strokeStyle = color;
+  /* 27. 선 색상과 채우기 색상 동일하게 만들기 */
+  ctx.fillStyle = color;
+}
+
+/* 29. fill 버튼 작동 함수 */
+/* 오탈자 언제나 확인할 것!!!(그냥 c v 로 해...) */
+function handleCanvasClick() {
+  if(filling) {
+  ctx.fillRect(0, 0, canvas.width, CANVAS_SIZE);
+  }
 }
 
 /* 18. 선 굵기(range)값 가지고 왔는지 확인 */
@@ -133,6 +173,11 @@ if(mode) {
   mode.addEventListener("click", handleModeClick)
 }
 
+/* 34. savaBtn 기능 구현 준비 */
+if(saveBtn) {
+  saveBtn.addEventListener("click", handleSaveClick);
+}
+
 /* 22. 채우기 버튼 실행 함수 */
 function handleModeClick() {
   if(filling === true) {
@@ -142,4 +187,26 @@ function handleModeClick() {
     filling = true;
     mode.innerText = "Paint";
   }
+}
+
+/* 32. contextmenu 함수(저장 기능) -> 
+  이 기능으로 우클릭 방지 기능 구현 가능 */
+function handleCM(event) {
+  //console.log(event);
+  event.preventDefault();
+}
+
+/* 35. saveBtn 클릭 저장 함수 */
+/* canvas의 데이터를 image 처럼 얻어야 함 */
+/* canvas to data url 검색 -> default PNG*/
+function handleSaveClick() {
+  const image = canvas.toDataURL("image/png");
+  //console.log(image);
+  /* 36. 가상의 링크 작성 */
+  const link = document.createElement("a");
+  link.href = image;
+  link.download = "PaintJS_EXPORT";
+  // console.log(link);
+  /* 37. 가짜 클릭 만들기 */
+  link.click();
 }
