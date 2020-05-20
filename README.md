@@ -8,6 +8,6 @@ Vanilla JS 기반 그림판 제작
 * Fill canvas
 * Save image
 
-Link: [Google][googlelink]
+Link: [Github][link]
 
-[googlelink]: https://google.com "Go google"
+[link]: https://github.com/macaronjung/portfolioCoding_05_canvas/
